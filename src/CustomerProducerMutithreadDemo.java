@@ -1,3 +1,9 @@
+/*
+这个例子中有三个主要对象：Res2（产品）、Producer（生产者）、Consumer（顾客）
+例子原理：给Producer分配两个线程，用同步方法保证一次只有一个线程进入set方法，生产一个Res2；
+同理，Consumer分配两个线程，一次只能消费一个Res2
+flag作为是否有Res2的标志，当有Res2时，生产者的线程wait，消费者线程争夺资源，结束后notifyall唤醒所有线程；反之亦然。
+ */
 class Res2
 {
     private String name;
@@ -61,14 +67,13 @@ class Consumer implements Runnable
 public class CustomerProducerMutithreadDemo{
 
     public static void main(String[] args) {
-        // TODO 自动生成的方法存根
         Res2 r = new Res2();
 
         Producer pro = new Producer(r);
         Consumer con = new Consumer(r);
 
-        Thread t1 = new Thread(pro);
         Thread t3 = new Thread(pro);
+        Thread t1 = new Thread(pro);
         Thread t2 = new Thread(con);
         Thread t4 = new Thread(con);
 
