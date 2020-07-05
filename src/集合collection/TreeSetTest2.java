@@ -1,4 +1,4 @@
-package 容器;
+package 集合collection;
 
 import java.util.Comparator;
 import java.util.Iterator;

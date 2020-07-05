@@ -1,4 +1,4 @@
-package 容器;
+package 集合collection;
 /*
     TreeSet可以对元素进行排序。
     底层数据结构是二叉树（也叫红黑树）

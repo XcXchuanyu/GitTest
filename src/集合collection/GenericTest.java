@@ -1,4 +1,4 @@
-package 容器;
+package 集合collection;
 /*
 泛型：jdk1.5后出现的新特性
 
