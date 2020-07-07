@@ -1,6 +1,7 @@
 package IO流;
 /*
 重写BufferReader的底层实现，并且自己写MylineNumberReader，使之继承自MyBufferReader
+MyLineNumberReader属于装饰类，将FileReader进行增强
  */
 
 import java.io.*;

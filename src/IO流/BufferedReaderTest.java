@@ -8,6 +8,7 @@ import java.io.IOException;
 public class BufferedReaderTest {
     public static void main(String[] args) throws IOException {
         FileReader fr  = new FileReader(".\\src\\IO流\\IOtest01.txt");
+        //用FileReader可以直接读取字符流
         BufferedReader bufr = new BufferedReader(fr);
 
         String line = null;
