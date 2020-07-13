@@ -1,5 +1,6 @@
 package IO流;
 import java.io.*;
+
 /*
 使用流处理方式，将数据提取出来
  */

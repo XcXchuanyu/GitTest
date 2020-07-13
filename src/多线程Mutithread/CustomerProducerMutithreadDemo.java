@@ -1,5 +1,7 @@
+package 多线程Mutithread;
+
 /*
-这个例子中有三个主要对象：Res2（产品）、Producer（生产者）、Consumer（顾客）
+这个例子中有三个主要对象：多线程.Res2（产品）、多线程.Producer（生产者）、多线程.Consumer（顾客）
 例子原理：给Producer分配两个线程，用同步方法保证一次只有一个线程进入set方法，生产一个Res2；
 同理，Consumer分配两个线程，一次只能消费一个Res2
 flag作为是否有Res2的标志，当有Res2时，生产者的线程wait，消费者线程争夺资源，结束后notifyall唤醒所有线程；反之亦然。
