@@ -6,26 +6,27 @@ package 多线程Mutithread;
 同理，Consumer分配两个线程，一次只能消费一个Res2
 flag作为是否有Res2的标志，当有Res2时，生产者的线程wait，消费者线程争夺资源，结束后notifyall唤醒所有线程；反之亦然。
  */
-class Res2
-{
+class Res2 {
     private String name;
     private int count = 1;
     private boolean flag;
 
-    public synchronized void set(String name)
-    {
-        while(flag)
-            try {wait();}catch(Exception e) {}
+    public synchronized void set(String name) {
+        while (flag)
+            try {
+                wait();
+            }catch(Exception e) {}
         this.name = name+"..."+count++;
         System.out.println(Thread.currentThread().getName()+"..生产者.."+this.name);
         flag = true;
         this.notifyAll();
     }
 
-    public synchronized void out()
-    {
-        while(!flag)
-            try {wait();}catch(Exception e) {}
+    public synchronized void out() {
+        while (!flag)
+            try {
+                wait();
+            }catch(Exception e) {}
         System.out.println(Thread.currentThread().getName()+"..消费者.."+this.name);
         flag = false;
         this.notifyAll();
@@ -39,12 +40,9 @@ class Producer implements Runnable
     {
         this.r = r;
     }
-    public void run()
-    {
-        while(true)
-        {
+    public void run() {
+        while (true) {
             r.set("thing1");
-
         }
     }
 }
@@ -52,14 +50,11 @@ class Producer implements Runnable
 class Consumer implements Runnable
 {
     private Res2 r;
-    Consumer(Res2 r)
-    {
+    Consumer(Res2 r) {
         this.r = r;
     }
-    public void run()
-    {
-        while(true)
-        {
+    public void run() {
+        while (true) {
             r.out();
         }
     }

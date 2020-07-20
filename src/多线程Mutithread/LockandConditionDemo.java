@@ -3,11 +3,14 @@ package 多线程Mutithread;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+/*
+功能：创建ShareData,内置increment和decrement方法，将sharedata中的数字加一或减一
 
+ */
 public class LockandConditionDemo {
     public static void main(String[] args) {
         ShareData sd = new ShareData();
-
+//通过lambda表达书创建四个线程
         new Thread(() -> {
             for (int i = 1; i <= 10; i++) {
                 try {
@@ -90,28 +93,34 @@ class ShareData {
             lock.unlock();
         }
     }
+}
 
+/*
+lock、condition的使用
+ */
+class OfficialAPI {
+    final Lock lock = new ReentrantLock();//重入锁
+    final Condition notFull = lock.newCondition();
+    final Condition notEmpty = lock.newCondition();
 
-    class GuanFangAPI {
-        final Lock lock = new ReentrantLock();
-        final Condition notFull = lock.newCondition();
-        final Condition notEmpty = lock.newCondition();
+    final Object[] items = new Object[100];
+    int putptr, takeptr, count;
 
-        final Object[] items = new Object[100];
-        int putptr, takeptr, count;
-
-        public void put(Object x) throws InterruptedException {
-            lock.lock();
-            try {
-                while (count == items.length)
-                    notFull.await();
-                items[putptr] = x;
-                if (++putptr == items.length) putptr = 0;
-                ++count;
-                notEmpty.signal();
-            } finally {
-                lock.unlock();
+    public void put(Object x) throws InterruptedException {
+        lock.lock();
+        try {
+            while (count == items.length) {
+                notFull.await();
+                //让生产线程等待
             }
+            items[putptr] = x;
+            //putptr应该是代表存放的指针
+            if (++putptr == items.length) putptr = 0;
+            ++count;
+            notEmpty.signal();
+            //唤醒消费线程
+        } finally {
+            lock.unlock();
         }
     }
 }
